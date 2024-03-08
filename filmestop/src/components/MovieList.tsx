@@ -12,7 +12,6 @@ function MovieList() {
 
   const handleGenreClick = (genreId) => {
     setSelectedGenre(genreId);
-    // Perform desired action with the selected genre ID
     fetch(`https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&with_genres=${genreId}&api_key=c554dc7f8d98022b6c08ef85a702130c`)
     .then(response => response.json())
     .then(data => {
@@ -38,9 +37,6 @@ function MovieList() {
 
 
   function handleClickMovie(movie){
-    console.log('You clicked on a movie;');
-    console.log(movie.id)
-    /*console.log(movie.id)*/ 
     if (selectedMovieId === movie.id) setSelectedMovieId(null);
     else setSelectedMovieId(movie.id);
     return 

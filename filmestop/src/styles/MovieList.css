@@ -26,7 +26,7 @@
   .movie-title {
     color: rgb(117, 117, 235);
     text-decoration: underline;
-    cursor: pointer; /* Add pointer cursor to indicate it's clickable */
+    cursor: pointer; 
 
 
   }

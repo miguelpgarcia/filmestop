@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 function MovieDetails({movie}) {
     const [movieDetailed, setMovieDetailed] = useState(null);
     useEffect(() => {
-        // Fetch movie details when the component mounts or when the movie prop changes
         fetch(`https://api.themoviedb.org/3/movie/${encodeURIComponent(movie.id)}?api_key=c554dc7f8d98022b6c08ef85a702130c`)
           .then(response => response.json())
           .then(data => {
