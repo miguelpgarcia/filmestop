@@ -1,0 +1,12 @@
+.movie-details{
+    border: 6px solid black;
+    width: 50%;
+}
+.movie-details-container{
+    display: flex;
+    justify-content: center;
+
+}
+
+.image{
+    width: 50%;}

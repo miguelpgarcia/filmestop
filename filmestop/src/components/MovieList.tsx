@@ -1,12 +1,26 @@
 import { useState, useEffect } from 'react';
 import MovieDetails from './MovieDetails.tsx';
+import GenreList from './GenreList';
+import '../styles/MovieList.css'
 
-function SearchMovie() {
+function MovieList() {
   const [searchTerm, setSearchTerm] = useState('');
   const [movies, setMovies] = useState([]);
   const [selectedMovieId, setSelectedMovieId] = useState(null);
+  const [selectedGenre, setSelectedGenre] = useState(null);
 
 
+  const handleGenreClick = (genreId) => {
+    setSelectedGenre(genreId);
+    // Perform desired action with the selected genre ID
+    fetch(`https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&with_genres=${genreId}&api_key=c554dc7f8d98022b6c08ef85a702130c`)
+    .then(response => response.json())
+    .then(data => {
+      setMovies(data.results);
+      console.log("Resultado Generos:", data.results);
+    })
+    .catch(error => console.error("Error fetching movies:", error));
+  };
 
 
   useEffect(() => {
@@ -27,34 +41,34 @@ function SearchMovie() {
     console.log('You clicked on a movie;');
     console.log(movie.id)
     /*console.log(movie.id)*/ 
-    if (selectedMovieId === movie.id) setSelectedMovieId(null)
+    if (selectedMovieId === movie.id) setSelectedMovieId(null);
     else setSelectedMovieId(movie.id);
     return 
   }
 
   return (
-    <div>
-      <input 
+    <div class = "movieList">
+      <GenreList onGenreClick={handleGenreClick} />
+      <div class = "searchInputContainer">
+      <input class = "searchInput"
         type="text" 
         placeholder="Search for a movie..." 
         value={searchTerm} 
         onChange={(e) => setSearchTerm(e.target.value)} 
 
       />
+      </div>
       <ul>
         {movies.map(movie => (
-          <li key={movie.id} >
-            <div onClick={() => handleClickMovie(movie)}>{movie.title}</div>
+          <ul class = "ul" key={movie.id} >
+            <div className = "movie-title" onClick={() => handleClickMovie(movie)}>{movie.title}</div>
             {selectedMovieId === movie.id && <MovieDetails movie={movie} />  }
-          </li>
+          </ul>
         ))}
       </ul>
     </div>
   );
 }
-export default SearchMovie;
+export default MovieList;
 
 
-function Test(){
-  return (<div>FODASE</div>)
-}

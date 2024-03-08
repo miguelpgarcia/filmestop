@@ -1,10 +1,4 @@
-/*
-
-function MovieDetails(){
-    return (<div>Test</div>)
-}
-
-*/
+import '../styles/MovieDetails.css'
 import { useState, useEffect } from 'react';
 
 function MovieDetails({movie}) {
@@ -21,17 +15,26 @@ function MovieDetails({movie}) {
           .catch(error => console.error("Error fetching movie details:", error));
       }, [movie]);
     
-  return (
-    <div>
-      {movieDetailed && (
-        <div>
-          <h2>{movieDetailed.title}</h2>
-          <p>{movieDetailed.overview}</p>
-          {/* Add more details as needed */}
+    
+      return (
+        <div className="movie-details-container">
+          {movieDetailed && (
+            <div className="movie-details">
+              <h2>{movieDetailed.title}</h2>
+              <p>{movieDetailed.overview}</p>
+              <div className="image-container">
+                <img
+                  className="image"
+                  src={`https://image.tmdb.org/t/p/w500${movieDetailed.poster_path}`}
+                  alt={movieDetailed.title}
+                />
+              </div>
+              <p>{movieDetailed.release_date}</p>
+            </div>
+            
+          )}
         </div>
-      )}
-    </div>
-  );
+      );
 }
 
 
